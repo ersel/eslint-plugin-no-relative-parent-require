@@ -1,4 +1,5 @@
 const { dirname, relative } = require('path');
+const resolve =  require('eslint-module-utils/resolve').default;
 const importType = require('./importType.js');
 
 const checkIfStaticRequire = node => {
@@ -18,6 +19,10 @@ module.exports.rules = {
     CallExpression(node) {
       if (checkIfStaticRequire(node)) {
         const myPath = context.getFilename();
+
+        if (myPath === '<text>') return {} // can't check a non-file
+        if (myPath === '<input>') return {} // can't check a draft
+        
         const depPath = node.arguments[0].value;
 
         if (importType(depPath, context) === "external") {
@@ -42,21 +47,6 @@ module.exports.rules = {
               "Please use ~root/ alias instead." 
           });
         }
-        /*
-        context.report({
-          node,
-          message: "Import from precompiled bright-components/dist instead",
-          fix(fixer) {
-            return fixer.replaceText(
-              node,
-              rawImportLine.replace(
-                "bright-components/src",
-                "bright-components/dist"
-              )
-            );
-          }
-        });
-        */
       }
     }
   })

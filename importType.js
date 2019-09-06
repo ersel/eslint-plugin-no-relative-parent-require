@@ -1,5 +1,5 @@
 const join = require('path').join;
-const resolve =  require('eslint-module-utils/resolve');
+const resolve =  require('eslint-module-utils/resolve').default;
 
 export function isAbsolute(name) {
   return name.indexOf('/') === 0
