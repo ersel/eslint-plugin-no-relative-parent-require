@@ -1,0 +1,22 @@
+{
+  "name": "eslint-plugin-no-relative-parent-require",
+  "version": "0.0.1",
+  "description": "Detects if a node module is being required from a parent directory.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ersel/eslint-plugin-no-relative-parent-require.git"
+  },
+  "author": "Ersel Aker",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ersel/eslint-plugin-no-relative-parent-require/issues"
+  },
+  "homepage": "https://github.com/ersel/eslint-plugin-no-relative-parent-require#readme",
+  "dependencies": {
+    "eslint-module-utils": "^2.4.1"
+  }
+}
