@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-no-relative-parent-require",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Detects if a node module is being required from a parent directory.",
   "main": "index.js",
   "scripts": {
