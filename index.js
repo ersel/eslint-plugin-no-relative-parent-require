@@ -47,7 +47,7 @@ module.exports.rules = {
         let isAnAllowedPath = false;
         if (hasAllowedPaths) {
           const paths = context.options[0];
-          isAnAllowedPath = paths.some(p => depPath.beginsWith(p));
+          isAnAllowedPath = paths.some(p => depPath.startsWith(p));
         }
 
         if (importType(relDepPath, context) === "parent" && !isAnAllowedPath) {
