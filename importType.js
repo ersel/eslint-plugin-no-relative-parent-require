@@ -1,7 +1,7 @@
 const join = require('path').join;
 const resolve =  require('eslint-module-utils/resolve').default;
 
-export function isAbsolute(name) {
+function isAbsolute(name) {
   return name.indexOf('/') === 0
 }
 
@@ -20,7 +20,7 @@ function isExternalModule(name, settings, path) {
 }
 
 const externalModuleMainRegExp = /^[\w]((?!\/).)*$/
-export function isExternalModuleMain(name, settings, path) {
+function isExternalModuleMain(name, settings, path) {
   return externalModuleMainRegExp.test(name) && isExternalPath(path, name, settings)
 }
 
@@ -30,7 +30,7 @@ function isScoped(name) {
 }
 
 const scopedMainRegExp = /^@[^/]+\/?[^/]+$/
-export function isScopedMain(name) {
+function isScopedMain(name) {
   return scopedMainRegExp.test(name)
 }
 
