@@ -1,6 +1,6 @@
-const { dirname, relative } = require('path');
-const resolve =  require('eslint-module-utils/resolve').default;
-const importType = require('./importType.js');
+const { dirname, relative } = require("path");
+const resolve = require("eslint-module-utils/resolve").default;
+const importType = require("./importType.js");
 
 const checkIfStaticRequire = node => {
   return (
@@ -20,9 +20,9 @@ module.exports.rules = {
       if (checkIfStaticRequire(node)) {
         const myPath = context.getFilename();
 
-        if (myPath === '<text>') return {} // can't check a non-file
-        if (myPath === '<input>') return {} // can't check a draft
-        
+        if (myPath === "<text>") return {}; // can't check a non-file
+        if (myPath === "<input>") return {}; // can't check a draft
+
         const depPath = node.arguments[0].value;
 
         if (importType(depPath, context) === "external") {
@@ -38,13 +38,24 @@ module.exports.rules = {
         }
 
         const relDepPath = relative(dirname(myPath), absDepPath);
+        const hasAllowedPaths =
+          context.options &&
+          context.options[0] &&
+          Array.isArray(context.options[0]) &&
+          context.options[0].length > 0;
 
-        if (importType(relDepPath, context) === "parent") {
+        let isAnAllowedPath = false;
+        if (hasAllowedPaths) {
+          const paths = context.options[0];
+          isAnAllowedPath = paths.some(p => depPath.beginsWith(p));
+        }
+
+        if (importType(relDepPath, context) === "parent" && !isAnAllowedPath) {
           context.report({
             node,
             message:
               "Relative requires from parent directories are not allowed for serverless functions. " +
-              "Please use ~root/ alias instead." 
+              "Please use ~root/ alias instead."
           });
         }
       }
